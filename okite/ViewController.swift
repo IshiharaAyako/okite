@@ -13,14 +13,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "ja_JP")
-        dateFormater.dateFormat = "yyyy/MM/dd HH:mm"
+        //日付
+        dateFormater.dateStyle = .short
         let date = dateFormater.string(from: Date())
-        
-        
-        //print(date)     // 2017/04/04 10:44
-        Label.text = date
+        print("date:" + date)
+        dateLabel.text = date
+        //追加
+//        //dateLabel.sizeToFit()
+//        dateLabel.center = self.view.center
+//        dateLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
+//        //dateLabel.backgroundColor = UIColor.gray
+
+        //時間
+        dateFormater.timeStyle = .short
+        dateFormater.dateStyle = .none
+        let time = dateFormater.string(from: Date())
+        print("time:", time)
+        timeLabel.text = time
+        //追加
+//        //dateLabel.sizeToFit()
+//        //timeLabel.center = self.view.center
+//        timeLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+//        timeLabel.backgroundColor = UIColor.blue
+//        timeLabel.layer.position = CGPoint(x: 100, y: 100);
         
     }
 
@@ -28,17 +46,19 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBOutlet weak var Label: UILabel!
     
-    @IBOutlet weak var date_picker: UIDatePicker!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
-    @IBAction func date_picker_func(_ sender: AnyObject) {
-        print("test: myDP moved!")
-    }    
-    @IBAction func button_func(_ sender: AnyObject) {
-        print("test: myButton Pushed!")
+    @IBAction func datePickerFunc(_ sender: AnyObject) {
+        print("test: dataPickerFunc moved!")
     }
+    
+    @IBAction func buttonFunc(_ sender: AnyObject) {
+        print("test: buttonFunc Pushed!")
+    }
+    
 }
 
 
