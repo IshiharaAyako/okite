@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        timeLabel.text = getTimeNow()
+        _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(UIMenuController.update), userInfo: nil, repeats: true)
+        
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "ja_JP")
         //日付
@@ -21,25 +24,18 @@ class ViewController: UIViewController {
         let date = dateFormater.string(from: Date())
         print("date:" + date)
         dateLabel.text = date
-        //追加
-//        //dateLabel.sizeToFit()
-//        dateLabel.center = self.view.center
-//        dateLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
-//        //dateLabel.backgroundColor = UIColor.gray
-
         //時間
         dateFormater.timeStyle = .short
         dateFormater.dateStyle = .none
         let time = dateFormater.string(from: Date())
         print("time:", time)
         timeLabel.text = time
-        //追加
-//        //dateLabel.sizeToFit()
-//        //timeLabel.center = self.view.center
-//        timeLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-//        timeLabel.backgroundColor = UIColor.blue
-//        timeLabel.layer.position = CGPoint(x: 100, y: 100);
         
+//        //nowTimeの確認
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "HH:mm"
+//        let nowTime = formatter.string(from: Date())
+//        print("nowTime:" + nowTime)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,16 +43,56 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private var tempTime: String = "00:00"
+    private var setTime: String = "00:00"
+//    private var nowTime: String = "00:00"
+    
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func datePickerFunc(_ sender: AnyObject) {
-        print("test: dataPickerFunc moved!")
+        // DPの値を成形
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "HH:mm"
+        // 一時的にDPの値を保持
+        tempTime = dateFormater.string(from: datePicker.date)
     }
     
     @IBAction func buttonFunc(_ sender: AnyObject) {
-        print("test: buttonFunc Pushed!")
+        setTime = tempTime
+        print("setTime:" + setTime)
+    }
+    
+    func getTimeNow()-> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let nowTime = formatter.string(from: Date())
+        return nowTime
+        
+        
+//        // 現在時刻を取得
+//        let nowTime: Date = Date()
+//        // 成形する
+//        let format = DateFormatter()
+//        format.dateFormat = "HH:mm"
+//        let nowTimeStr = format.string(from: nowTime)
+//        print("ok")
+//        // 成形した時刻を文字列として返す
+//        return nowTimeStr
+    }
+    
+    func update() {
+        // 現在時刻を取得
+        let str = getTimeNow()
+        // アラーム鳴らすか判断
+        Alarm(str: str)
+    }
+    
+    func Alarm(str: String) {
+        if (str == setTime){
+            print("ok")
+        }
     }
     
 }
