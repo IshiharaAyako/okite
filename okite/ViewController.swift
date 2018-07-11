@@ -9,23 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        // 起動した時点の時刻をmyLabelに反映
         timeLabel.text = getTimeNow()
-        // 60秒ごとにupdate()を呼び出す
-        update()
-        _ = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timeUpdate), userInfo: nil, repeats: true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    private var tempTime: String = "00:00"
+    private var tmpTime: String = "00:00"
     private var setTime: String = "00:00"
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -33,15 +30,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func datePickerFunc(_ sender: AnyObject) {
-        // DPの値を成形
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "HH:mm"
-        // 一時的にDPの値を保持
-        tempTime = dateFormater.string(from: datePicker.date)
+        tmpTime = dateFormater.string(from: datePicker.date)
     }
     
     @IBAction func buttonFunc(_ sender: AnyObject) {
-        setTime = tempTime
+        setTime = tmpTime
         print("setTime:" + setTime)
     }
     
@@ -57,33 +52,27 @@ class ViewController: UIViewController {
         dateFormater.dateStyle = .none
         let time = dateFormater.string(from: Date())
         timeLabel.text = time
+        print("time:" + time)
         return time
     }
     
-    @objc func update() {
-        // 現在時刻を取得
+    @objc func timeUpdate() {
         let str = getTimeNow()
-        // アラーム鳴らすか判断
-        Alarm(str: str)
+        alarm(str: str)
     }
     
-    func Alarm(str: String) {
+    func alarm(str: String) {
         if (str == setTime){
             alert()
         }
     }
     
     func alert(){
-        // UIAlertControllerを作成する.
-        //let myAlert: UIAlertController = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
         let myAlert = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
-        // OKのアクションを作成する.
         let myOkAction = UIAlertAction(title: "OK", style: .default) {
             action in print("Action OK!!")
         }
-        // OKのActionを追加する
         myAlert.addAction(myOkAction)
-        // UIAlertを発動する.
         present(myAlert, animated: true, completion: nil)
         
     }
