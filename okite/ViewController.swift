@@ -13,29 +13,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        // 起動した時点の時刻をmyLabelに反映
         timeLabel.text = getTimeNow()
-        _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(UIMenuController.update), userInfo: nil, repeats: true)
-        
-        let dateFormater = DateFormatter()
-        dateFormater.locale = Locale(identifier: "ja_JP")
-        //日付
-        dateFormater.dateStyle = .short
-        let date = dateFormater.string(from: Date())
-        print("date:" + date)
-        dateLabel.text = date
-        //時間
-        dateFormater.timeStyle = .short
-        dateFormater.dateStyle = .none
-        let time = dateFormater.string(from: Date())
-        print("time:", time)
-        timeLabel.text = time
-        
-//        //nowTimeの確認
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm"
-//        let nowTime = formatter.string(from: Date())
-//        print("nowTime:" + nowTime)
+        // 60秒ごとにupdate()を呼び出す
+        update()
+        _ = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,7 +27,6 @@ class ViewController: UIViewController {
     
     private var tempTime: String = "00:00"
     private var setTime: String = "00:00"
-//    private var nowTime: String = "00:00"
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -65,24 +46,21 @@ class ViewController: UIViewController {
     }
     
     func getTimeNow()-> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        let nowTime = formatter.string(from: Date())
-        return nowTime
-        
-        
-//        // 現在時刻を取得
-//        let nowTime: Date = Date()
-//        // 成形する
-//        let format = DateFormatter()
-//        format.dateFormat = "HH:mm"
-//        let nowTimeStr = format.string(from: nowTime)
-//        print("ok")
-//        // 成形した時刻を文字列として返す
-//        return nowTimeStr
+        let dateFormater = DateFormatter()
+        dateFormater.locale = Locale(identifier: "ja_JP")
+        //日付
+        dateFormater.dateStyle = .short
+        let date = dateFormater.string(from: Date())
+        dateLabel.text = date
+        //時間
+        dateFormater.timeStyle = .short
+        dateFormater.dateStyle = .none
+        let time = dateFormater.string(from: Date())
+        timeLabel.text = time
+        return time
     }
     
-    func update() {
+    @objc func update() {
         // 現在時刻を取得
         let str = getTimeNow()
         // アラーム鳴らすか判断
@@ -91,8 +69,23 @@ class ViewController: UIViewController {
     
     func Alarm(str: String) {
         if (str == setTime){
-            print("ok")
+            alert()
         }
+    }
+    
+    func alert(){
+        // UIAlertControllerを作成する.
+        //let myAlert: UIAlertController = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
+        let myAlert = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
+        // OKのアクションを作成する.
+        let myOkAction = UIAlertAction(title: "OK", style: .default) {
+            action in print("Action OK!!")
+        }
+        // OKのActionを追加する
+        myAlert.addAction(myOkAction)
+        // UIAlertを発動する.
+        present(myAlert, animated: true, completion: nil)
+        
     }
     
 }
