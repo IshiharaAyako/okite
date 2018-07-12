@@ -87,13 +87,28 @@ class ViewController: UIViewController {
         }
     }
     
+    func audiostop(){
+        self.audioPlayer.stop()
+        voice()
+    }
+    
     func alert(){
         let myAlert = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
         let myOkAction = UIAlertAction(title: "起きる！", style: .default) {
-            action in self.audioPlayer.stop()
+            action in self.audiostop()
         }
         myAlert.addAction(myOkAction)
         present(myAlert, animated: true, completion: nil)
     }
-    
+
+    func voice() {
+        /** SpeechSynthesizerクラス */
+        let talker = AVSpeechSynthesizer()
+        // 話す内容をセット
+        let utterance = AVSpeechUtterance(string: "今日の予定はhogehogeです")
+        // 言語を日本に設定
+        utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
+        // 実行
+        talker.speak(utterance)
+    }
 }
