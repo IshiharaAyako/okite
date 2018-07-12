@@ -7,20 +7,20 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         timeLabel.text = getTimeNow()
         _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timeUpdate), userInfo: nil, repeats: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    var audioPlayer:AVAudioPlayer!
     
     private var tmpTime: String = "00:00"
     private var setTime: String = "00:00"
@@ -63,20 +63,37 @@ class ViewController: UIViewController {
     
     func alarm(str: String) {
         if (str == setTime){
+            // 再生する audio ファイルのパスを取得
+            let audioPath = Bundle.main.path(forResource: "Clock-Alarm Dig01-2L", ofType:"mp3")!
+            let audioUrl = URL(fileURLWithPath: audioPath)
+            // auidoを再生するプレイヤーを作成する
+            var audioError:NSError?
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: audioUrl)
+                audioPlayer?.numberOfLoops = -1
+            } catch let error as NSError {
+                audioError = error
+                audioPlayer = nil
+            }
+            // エラーが起きたとき
+            if let error = audioError {
+                print("Error \(error.localizedDescription)")
+            }
+            //audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+            
             alert()
         }
     }
     
     func alert(){
         let myAlert = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
-        let myOkAction = UIAlertAction(title: "OK", style: .default) {
-            action in print("Action OK!!")
+        let myOkAction = UIAlertAction(title: "起きる！", style: .default) {
+            action in self.audioPlayer.stop()
         }
         myAlert.addAction(myOkAction)
         present(myAlert, animated: true, completion: nil)
-        
     }
     
 }
-
-

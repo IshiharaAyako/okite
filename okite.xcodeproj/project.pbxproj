@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A2BC41C20F5CD170004ED21 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2BC41B20F5CD170004ED21 /* AudioToolbox.framework */; };
+		7A2BC41E20F5D15F0004ED21 /* Clock-Alarm Dig01-2L.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BC41D20F5D15F0004ED21 /* Clock-Alarm Dig01-2L.mp3 */; };
 		7AD2F22520F2F98E0050B350 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2F22420F2F98E0050B350 /* AppDelegate.swift */; };
 		7AD2F22720F2F98E0050B350 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2F22620F2F98E0050B350 /* ViewController.swift */; };
 		7AD2F22A20F2F98E0050B350 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD2F22820F2F98E0050B350 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A2BC41B20F5CD170004ED21 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		7A2BC41D20F5D15F0004ED21 /* Clock-Alarm Dig01-2L.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Clock-Alarm Dig01-2L.mp3"; path = "../../Downloads/Clock-Alarm Dig01-mp3/Clock-Alarm Dig01-2L.mp3"; sourceTree = "<group>"; };
 		7AD2F22120F2F98E0050B350 /* okite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = okite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD2F22420F2F98E0050B350 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AD2F22620F2F98E0050B350 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A2BC41C20F5CD170004ED21 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A2BC41A20F5CD170004ED21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A2BC41B20F5CD170004ED21 /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7AD2F21820F2F98E0050B350 = {
 			isa = PBXGroup;
 			children = (
 				7AD2F22320F2F98E0050B350 /* okite */,
 				7AD2F22220F2F98E0050B350 /* Products */,
+				7A2BC41A20F5CD170004ED21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +74,7 @@
 				7AD2F22B20F2F98F0050B350 /* Assets.xcassets */,
 				7AD2F22D20F2F98F0050B350 /* LaunchScreen.storyboard */,
 				7AD2F23020F2F98F0050B350 /* Info.plist */,
+				7A2BC41D20F5D15F0004ED21 /* Clock-Alarm Dig01-2L.mp3 */,
 			);
 			path = okite;
 			sourceTree = "<group>";
@@ -122,6 +137,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A2BC41E20F5D15F0004ED21 /* Clock-Alarm Dig01-2L.mp3 in Resources */,
 				7AD2F22F20F2F98F0050B350 /* LaunchScreen.storyboard in Resources */,
 				7AD2F22C20F2F98F0050B350 /* Assets.xcassets in Resources */,
 				7AD2F22A20F2F98E0050B350 /* Main.storyboard in Resources */,
