@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     @IBAction func buttonFunc(_ sender: AnyObject) {
         setTime = tmpTime
         print("setTime:" + setTime)
+        voiceAlert()
     }
     
     func getTimeNow()-> String {
@@ -100,12 +101,24 @@ class ViewController: UIViewController {
         myAlert.addAction(myOkAction)
         present(myAlert, animated: true, completion: nil)
     }
+    
+    func voiceAlert(){
+        let voiceAlert = UIAlertController(title: "予定を追加しますか？", message: "", preferredStyle: .alert)
+        let OkAction = UIAlertAction(title: "追加する", style: .default) {
+            action in print("yes")
+        }
+        let NoAction = UIAlertAction(title: "追加しない", style: .default) {
+            action in print("no")
+        }
+        voiceAlert.addAction(OkAction)
+        present(voiceAlert, animated: true, completion: nil)
+    }
 
     func voice() {
-        /** SpeechSynthesizerクラス */
+        /*SpeechSynthesizerクラス*/
         let talker = AVSpeechSynthesizer()
         // 話す内容をセット
-        let utterance = AVSpeechUtterance(string: "今日の予定はhogehogeです")
+        let utterance = AVSpeechUtterance(string: "今日の予定はhogehogeです。さぁ起きましょう")
         // 言語を日本に設定
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         // 実行
