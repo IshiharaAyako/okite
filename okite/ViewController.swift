@@ -7,23 +7,19 @@
 //
 
 import UIKit
-import AudioToolbox //追加
-import AVFoundation //AVFoundationのインポート
+import AVFoundation
 
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         timeLabel.text = getTimeNow()
         _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timeUpdate), userInfo: nil, repeats: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    //audioPlayerを作成
     var audioPlayer:AVAudioPlayer!
     
     private var tmpTime: String = "00:00"
@@ -67,80 +63,37 @@ class ViewController: UIViewController {
     
     func alarm(str: String) {
         if (str == setTime){
-            //アラーム
-            //        var soundIdRing:SystemSoundID = 0
-            //        if let soundUrl:NSURL = NSURL(fileURLWithPath:
-            //            Bundle.main.path(forResource: "Clock-Alarm Dig01-2L", ofType:"mp3")!) as NSURL?{
-            //            AudioServicesCreateSystemSoundID(soundUrl, &soundIdRing)
-            //            AudioServicesPlaySystemSound(soundIdRing)
-            //        }
-            
-            // 追加
-            //playSound(name: "Clock-Alarm Dig01-2L")
-            
             // 再生する audio ファイルのパスを取得
             let audioPath = Bundle.main.path(forResource: "Clock-Alarm Dig01-2L", ofType:"mp3")!
             let audioUrl = URL(fileURLWithPath: audioPath)
-            
-            // auido を再生するプレイヤーを作成する
+            // auidoを再生するプレイヤーを作成する
             var audioError:NSError?
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: audioUrl)
+                audioPlayer?.numberOfLoops = -1
             } catch let error as NSError {
                 audioError = error
                 audioPlayer = nil
             }
-            
             // エラーが起きたとき
             if let error = audioError {
                 print("Error \(error.localizedDescription)")
             }
-            
             //audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             audioPlayer.play()
-            //---
+            
             alert()
         }
     }
     
-    func test(){
-        print("Pushed Button")
-        //self.audioPlayer.stop()
-        audioPlayer.stop()
-    }
-    
     func alert(){
-        //アラート表示
         let myAlert = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle: .alert)
-        let myOkAction = UIAlertAction(title: "OK", style: .default) {
-            //action in self.audioPlayer.stop()
-            action in self.test()
+        let myOkAction = UIAlertAction(title: "起きる！", style: .default) {
+            action in self.audioPlayer.stop()
         }
         myAlert.addAction(myOkAction)
         present(myAlert, animated: true, completion: nil)
     }
     
 }
-
-//extension ViewController: AVAudioPlayerDelegate {
-//    func playSound(name: String) {
-//        guard let path = Bundle.main.path(forResource: name, ofType: "mp3") else {
-//            print("音源ファイルが見つかりません")
-//            return
-//        }
-//        do {
-//            // AVAudioPlayerのインスタンス化
-//            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
-//
-//            // AVAudioPlayerのデリゲートをセット
-//            audioPlayer.delegate = self
-//
-//            // 音声の再生
-//            audioPlayer.play()
-//        } catch {
-//        }
-//    }
-//}
-//
-//
