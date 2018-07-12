@@ -115,7 +115,7 @@ class ViewController: UIViewController {
     }
 
     func voice() {
-        /** SpeechSynthesizerクラス */
+        /*SpeechSynthesizerクラス*/
         let talker = AVSpeechSynthesizer()
         // 話す内容をセット
         let utterance = AVSpeechUtterance(string: "今日の予定はhogehogeです。さぁ起きましょう")
