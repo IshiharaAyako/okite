@@ -11,9 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    //追加-
+    //追加
     var speechText: String = ""
-    //----
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +81,6 @@ class ViewController: UIViewController {
             if let error = audioError {
                 print("Error \(error.localizedDescription)")
             }
-            //audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             audioPlayer.play()
             
@@ -102,21 +100,15 @@ class ViewController: UIViewController {
     }
     
     func voice() {
-        //        /*SpeechSynthesizerクラス*/
-        //        let talker = AVSpeechSynthesizer()
+        /*SpeechSynthesizerクラス*/
+        let talker = AVSpeechSynthesizer()
         //        // 話す内容をセット
         //        let utterance = AVSpeechUtterance(string: "今日の予定は\(myTextField)です。さぁ起きましょう")
-        //        //        let plan: String = "あああああああ"
-        //        //        let utterance = AVSpeechUtterance(string: "今日の予定は\(plan)です。さぁ起きましょう")
-        //        // 言語を日本に設定
-        //        utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
-        //        // 実行
-        //        talker.speak(utterance)
-        
         //追加
-        let talker = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText)です。")
+        // 言語を日本に設定
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
+        // 実行
         talker.speak(utterance)
     }
     
@@ -130,12 +122,11 @@ class ViewController: UIViewController {
         
         let defaultAction: UIAlertAction = UIAlertAction(title: "する", style: UIAlertActionStyle.default, handler:{
             (action: UIAlertAction!) -> Void in
-            //self.planAlert()
-            self.test()
+            self.planAlert()
         })
         let cancelAction: UIAlertAction = UIAlertAction(title: "しない", style: UIAlertActionStyle.cancel, handler:{
             (action: UIAlertAction!) -> Void in
-            print("no")
+            print("予定を追加していません")
         })
         //UIAlertControllerにActionを追加
         setAlert.addAction(defaultAction)
@@ -144,28 +135,13 @@ class ViewController: UIViewController {
         present(setAlert, animated: true, completion: nil)
     }
     
-    func test() {
+    func planAlert() {
         let questionAlert = UIAlertController(title: "今日の予定は？", message: "", preferredStyle: .alert)
-        questionAlert.addTextField(configurationHandler: { (textField:UITextField) -> Void in
-            textField.placeholder = "placeholder"
-        })
-        
-        //        questionAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action:UIAlertAction) -> Void in
-        //        let textField = questionAlert.textFields![0] as UITextField
-        //        print("Text field: \(String(describing: textField.text))")
-        //        }))
-        //
-        //        questionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action:UIAlertAction) -> Void in
-        //        print("Text field: cancel")
-        //        }))
-        //        self.present(questionAlert, animated: true, completion: nil)
-        
         //追加
         let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
             // TextFieldから値を取得
             if let text = questionAlert.textFields?.first?.text {
                 self.speechText = text
-                //self.voice()
             }
         })
         
