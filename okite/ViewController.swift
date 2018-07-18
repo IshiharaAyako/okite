@@ -161,11 +161,11 @@ class ViewController: UIViewController {
         //        self.present(questionAlert, animated: true, completion: nil)
         
         //追加
-        let speechAction = UIAlertAction(title: "Speech", style: .default, handler: { (_) -> Void in
+        let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
             // TextFieldから値を取得
             if let text = questionAlert.textFields?.first?.text {
                 self.speechText = text
-                self.voice()
+                //self.voice()
             }
         })
         
