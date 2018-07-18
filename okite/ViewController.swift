@@ -99,22 +99,22 @@ class ViewController: UIViewController {
         present(myAlert, animated: true, completion: nil)
     }
     
+    func audioStop() {
+        self.audioPlayer.stop()
+
+        if speechText != "" {
+        voice()
+        }
+    }
+    
     func voice() {
-        /*SpeechSynthesizerクラス*/
         let talker = AVSpeechSynthesizer()
-        //        // 話す内容をセット
-        //        let utterance = AVSpeechUtterance(string: "今日の予定は\(myTextField)です。さぁ起きましょう")
-        //追加
+        //追加---
         let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText)です。")
-        // 言語を日本に設定
+        //-------
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         // 実行
         talker.speak(utterance)
-    }
-    
-    func audioStop() {
-        self.audioPlayer.stop()
-        voice()
     }
     
     func setAlert(){
@@ -123,10 +123,12 @@ class ViewController: UIViewController {
         let defaultAction: UIAlertAction = UIAlertAction(title: "する", style: UIAlertActionStyle.default, handler:{
             (action: UIAlertAction!) -> Void in
             self.planAlert()
+            
         })
         let cancelAction: UIAlertAction = UIAlertAction(title: "しない", style: UIAlertActionStyle.cancel, handler:{
             (action: UIAlertAction!) -> Void in
             print("予定を追加していません")
+
         })
         //UIAlertControllerにActionを追加
         setAlert.addAction(defaultAction)
@@ -137,7 +139,7 @@ class ViewController: UIViewController {
     
     func planAlert() {
         let questionAlert = UIAlertController(title: "今日の予定は？", message: "", preferredStyle: .alert)
-        //追加
+        //追加---
         let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
             // TextFieldから値を取得
             if let text = questionAlert.textFields?.first?.text {
@@ -151,6 +153,7 @@ class ViewController: UIViewController {
         questionAlert.addAction(cancel)
         questionAlert.addTextField { (textField) in }
         present(questionAlert, animated: true, completion: nil)
+        //-------
     }
 }
 
