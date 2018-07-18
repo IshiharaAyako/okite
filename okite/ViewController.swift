@@ -115,6 +115,8 @@ class ViewController: UIViewController {
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         // 実行
         talker.speak(utterance)
+        
+        speechText = ""
     }
     
     func setAlert(){
