@@ -12,8 +12,9 @@ import AVFoundation
 class ViewController: UIViewController {
     
     //追加
-    var speechText: String = ""
+    var speechText1: String = ""
     var speechText2: String = ""
+    var speechText3: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,20 +87,24 @@ class ViewController: UIViewController {
     func planAlert() {
         let questionAlert = UIAlertController(title: "明日の予定は？", message: "", preferredStyle: .alert)
         let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
-            let text = questionAlert.textFields![0].text!
+            let text1 = questionAlert.textFields![0].text!
             let text2 = questionAlert.textFields![1].text!
-            self.speechText = text
+            let text3 = questionAlert.textFields![2].text!
+            self.speechText1 = text1
             self.speechText2 = text2
-            print("speechText = \(self.speechText)")
+            self.speechText3 = text3
+            print("speechText1 = \(self.speechText1)")
             print("speechText2 = \(self.speechText2)")
+            print("speechText3 = \(self.speechText3)")
         })
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         questionAlert.addAction(speechAction)
         questionAlert.addAction(cancel)
-        questionAlert.addTextField { (textField) in textField.placeholder = "first textField"}
-        questionAlert.addTextField { (textField) in textField.placeholder = "second textField"}
+        questionAlert.addTextField { (textField) in }
+        questionAlert.addTextField { (textField) in }
+        questionAlert.addTextField { (textField) in }
         present(questionAlert, animated: true, completion: nil)
     }
     
@@ -142,19 +147,20 @@ class ViewController: UIViewController {
     func audioStop() {
         self.audioPlayer.stop()
         
-        if speechText != "" {
+        if speechText1 != "" {
             voice()
         }
     }
     
     func voice() {
         let talker = AVSpeechSynthesizer()
-        let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText) \(speechText2)です。")
+        let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText1)。 +  。 + \(speechText2)。 +  。 + \(speechText3)。です。")
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         talker.speak(utterance)
         
-        speechText = ""
+        speechText1 = ""
         speechText2 = ""
+        speechText3 = ""
     }
     
 }
