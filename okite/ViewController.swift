@@ -12,7 +12,9 @@ import AVFoundation
 class ViewController: UIViewController {
     
     //追加
-    var speechText: String = ""
+    var speechText1: String = ""
+    var speechText2: String = ""
+    var speechText3: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,6 @@ class ViewController: UIViewController {
     
     private var tmpTime: String = "00:00"
     private var setTime: String = "00:00"
-    private var myTextField: UITextField! //追加
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -63,6 +64,50 @@ class ViewController: UIViewController {
         alarm(str: str)
     }
     
+    func setAlert(){
+        let setAlert: UIAlertController = UIAlertController(title: "予定を追加しますか？", message: "", preferredStyle:  UIAlertControllerStyle.alert)
+        
+        let defaultAction: UIAlertAction = UIAlertAction(title: "する", style: UIAlertActionStyle.default, handler:{
+            (action: UIAlertAction!) -> Void in
+            self.planAlert()
+        })
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "しない", style: UIAlertActionStyle.cancel, handler:{
+            (action: UIAlertAction!) -> Void in
+            print("予定を追加していません")
+        })
+        
+        //UIAlertControllerにActionを追加
+        setAlert.addAction(defaultAction)
+        setAlert.addAction(cancelAction)
+        //Alertを表示
+        present(setAlert, animated: true, completion: nil)
+    }
+    
+    func planAlert() {
+        let questionAlert = UIAlertController(title: "明日の予定は？", message: "", preferredStyle: .alert)
+        let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
+            let text1 = questionAlert.textFields![0].text!
+            let text2 = questionAlert.textFields![1].text!
+            let text3 = questionAlert.textFields![2].text!
+            self.speechText1 = text1
+            self.speechText2 = text2
+            self.speechText3 = text3
+            print("speechText1 = \(self.speechText1)")
+            print("speechText2 = \(self.speechText2)")
+            print("speechText3 = \(self.speechText3)")
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        questionAlert.addAction(speechAction)
+        questionAlert.addAction(cancel)
+        questionAlert.addTextField { (textField) in }
+        questionAlert.addTextField { (textField) in }
+        questionAlert.addTextField { (textField) in }
+        present(questionAlert, animated: true, completion: nil)
+    }
+    
     func alarm(str: String) {
         if (str == setTime){
             // 再生する audio ファイルのパスを取得
@@ -89,8 +134,8 @@ class ViewController: UIViewController {
     }
     
     func alert(){
-        let myAlert: UIAlertController = UIAlertController(title: "朝ですよ〜！！", message: "", preferredStyle:  UIAlertControllerStyle.alert)
-        let myOkAction: UIAlertAction = UIAlertAction(title: "起きる！", style: UIAlertActionStyle.default, handler:{
+        let myAlert: UIAlertController = UIAlertController(title: "おきて〜！！", message: "", preferredStyle:  UIAlertControllerStyle.alert)
+        let myOkAction: UIAlertAction = UIAlertAction(title: "STOP", style: UIAlertActionStyle.default, handler:{
             (action: UIAlertAction!) -> Void in
             self.audioStop()
         })
@@ -101,62 +146,24 @@ class ViewController: UIViewController {
     
     func audioStop() {
         self.audioPlayer.stop()
-
-        if speechText != "" {
-        voice()
+        
+        if speechText1 != "" {
+            voice()
         }
     }
     
     func voice() {
         let talker = AVSpeechSynthesizer()
-        //追加---
-        let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText)です。")
-        //-------
+        let utterance = AVSpeechUtterance(string: "おはようございます。今日の予定は\(speechText1)。 +  。 + \(speechText2)。 +  。 + \(speechText3)。です。")
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
-        // 実行
+        utterance.pitchMultiplier = 1.2
         talker.speak(utterance)
         
-        speechText = ""
+        speechText1 = ""
+        speechText2 = ""
+        speechText3 = ""
     }
     
-    func setAlert(){
-        let setAlert: UIAlertController = UIAlertController(title: "予定を追加しますか？", message: "", preferredStyle:  UIAlertControllerStyle.alert)
-        
-        let defaultAction: UIAlertAction = UIAlertAction(title: "する", style: UIAlertActionStyle.default, handler:{
-            (action: UIAlertAction!) -> Void in
-            self.planAlert()
-            
-        })
-        let cancelAction: UIAlertAction = UIAlertAction(title: "しない", style: UIAlertActionStyle.cancel, handler:{
-            (action: UIAlertAction!) -> Void in
-            print("予定を追加していません")
-
-        })
-        //UIAlertControllerにActionを追加
-        setAlert.addAction(defaultAction)
-        setAlert.addAction(cancelAction)
-        //Alertを表示
-        present(setAlert, animated: true, completion: nil)
-    }
-    
-    func planAlert() {
-        let questionAlert = UIAlertController(title: "今日の予定は？", message: "", preferredStyle: .alert)
-        //追加---
-        let speechAction = UIAlertAction(title: "OK", style: .default, handler: { (_) -> Void in
-            // TextFieldから値を取得
-            if let text = questionAlert.textFields?.first?.text {
-                self.speechText = text
-            }
-        })
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        questionAlert.addAction(speechAction)
-        questionAlert.addAction(cancel)
-        questionAlert.addTextField { (textField) in }
-        present(questionAlert, animated: true, completion: nil)
-        //-------
-    }
 }
 
 
