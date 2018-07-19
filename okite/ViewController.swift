@@ -154,8 +154,9 @@ class ViewController: UIViewController {
     
     func voice() {
         let talker = AVSpeechSynthesizer()
-        let utterance = AVSpeechUtterance(string: "今日の予定は\(speechText1)。 +  。 + \(speechText2)。 +  。 + \(speechText3)。です。")
+        let utterance = AVSpeechUtterance(string: "おはようございます。今日の予定は\(speechText1)。 +  。 + \(speechText2)。 +  。 + \(speechText3)。です。")
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
+        utterance.pitchMultiplier = 1.2
         talker.speak(utterance)
         
         speechText1 = ""
