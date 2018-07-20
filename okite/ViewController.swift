@@ -15,16 +15,21 @@ class ViewController: UIViewController {
     var speechText2: String = ""
     var speechText3: String = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         timeLabel.text = getTimeNow()
         _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timeUpdate), userInfo: nil, repeats: true)
         
+        dateLabel.textColor = UIColor.white
+        timeLabel.textColor = UIColor.white
+        datePicker.setValue(UIColor.white, forKey: "textColor")
+        
         //グラデーションレイヤーをスクリーンサイズにする
         gradationLayer.frame = self.view.bounds
-        
         // グラデーションをViewに追加
         view.layer.insertSublayer(gradationLayer, at: 0)
+        
     }
     
     var audioPlayer:AVAudioPlayer!
@@ -56,15 +61,25 @@ class ViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
         
         // 色が切り替わる地点
-        let locations:[NSNumber] = [0.0, 0.555, 0.875]
+        let locations:[NSNumber] = [0.0, 0.455, 0.899]
         gradientLayer.locations = locations
         
         //グラデーションの開始色
-        let topColor = UIColor(red:0.675, green:0.878, blue:0.976, alpha:1)
-        //グラデーションの開始色
-        let centerColor = UIColor(red:0.761, green:0.894, blue:0.961, alpha:1)
-        //グラデーションの開始色
-        let bottomColor = UIColor(red:1.0, green:0.945, blue:0.922, alpha:1)
+//        //ver.1
+//        let topColor = UIColor(red:0.675, green:0.878, blue:0.976, alpha:1)
+//        let centerColor = UIColor(red:0.761, green:0.894, blue:0.961, alpha:1)
+//        let bottomColor = UIColor(red:1.0, green:0.945, blue:0.859, alpha:1)
+
+        //ver.2
+        let topColor = UIColor(red:0.725, green:0.910, blue:0.922, alpha:1)
+        let centerColor = UIColor(red:0.725, green:0.902, blue:0.910, alpha:1)
+        let bottomColor = UIColor(red:0.992, green:0.945, blue:0.859, alpha:1)
+        
+//        //ver.3
+//        let topColor = UIColor(red:0.675, green:0.878, blue:0.976, alpha:1)
+//        let centerColor = UIColor(red:0.761, green:0.894, blue:0.961, alpha:1)
+//        let bottomColor = UIColor(red:0.992, green:0.945, blue:0.925, alpha:1)
+        
         // 切り替わる色
         let colors = [topColor.cgColor, centerColor.cgColor, bottomColor.cgColor]
         gradientLayer.colors = colors
