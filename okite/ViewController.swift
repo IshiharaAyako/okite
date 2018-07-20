@@ -11,7 +11,6 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    //追加
     var speechText1: String = ""
     var speechText2: String = ""
     var speechText3: String = ""
@@ -20,6 +19,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         timeLabel.text = getTimeNow()
         _ = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timeUpdate), userInfo: nil, repeats: true)
+        
+        //グラデーションレイヤーをスクリーンサイズにする
+        gradationLayer.frame = self.view.bounds
+        
+        // グラデーションをViewに追加
+        view.layer.insertSublayer(gradationLayer, at: 0)
     }
     
     var audioPlayer:AVAudioPlayer!
@@ -42,6 +47,29 @@ class ViewController: UIViewController {
         print("setTime:" + setTime)
         setAlert()
     }
+    
+    //背景グラデーション
+    var gradationLayer:CALayer = {
+        let gradientLayer = CAGradientLayer()
+        // グラデーションの方向
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        
+        // 色が切り替わる地点
+        let locations:[NSNumber] = [0.0, 0.555, 0.875]
+        gradientLayer.locations = locations
+        
+        //グラデーションの開始色
+        let topColor = UIColor(red:0.675, green:0.878, blue:0.976, alpha:1)
+        //グラデーションの開始色
+        let centerColor = UIColor(red:0.761, green:0.894, blue:0.961, alpha:1)
+        //グラデーションの開始色
+        let bottomColor = UIColor(red:1.0, green:0.945, blue:0.922, alpha:1)
+        // 切り替わる色
+        let colors = [topColor.cgColor, centerColor.cgColor, bottomColor.cgColor]
+        gradientLayer.colors = colors
+        return gradientLayer
+    }()
     
     func getTimeNow()-> String {
         let dateFormater = DateFormatter()
