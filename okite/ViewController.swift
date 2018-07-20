@@ -30,6 +30,14 @@ class ViewController: UIViewController {
         // グラデーションをViewに追加
         view.layer.insertSublayer(gradationLayer, at: 0)
         
+        setButton.setTitle("SET", for: .normal) // ボタンのタイトル
+        setButton.setTitleColor(UIColor(red:0.725, green:0.902, blue:0.910, alpha:1), for: .normal) // タイトルの色
+        
+        let screenWidth:CGFloat = self.view.frame.width
+        let screenHeight:CGFloat = self.view.frame.height
+        setButton.frame = CGRect(x:screenWidth/4, y:screenHeight/1.5, width:200, height:50)
+        setButton.backgroundColor = UIColor.white
+        setButton.layer.cornerRadius = 25.0
     }
     
     var audioPlayer:AVAudioPlayer!
@@ -40,6 +48,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var setButton: UIButton!
+    
     
     @IBAction func datePickerFunc(_ sender: AnyObject) {
         let dateFormater = DateFormatter()

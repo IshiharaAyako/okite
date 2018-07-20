@@ -30,12 +30,13 @@
                                     <action selector="datePickerFunc:" destination="BYZ-38-t0r" eventType="valueChanged" id="kco-g8-h4g"/>
                                 </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mtr-TS-6wp">
-                                <rect key="frame" x="164.5" y="475" width="45" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mtr-TS-6wp">
+                                <rect key="frame" x="164.5" y="475" width="47" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="SET"/>
                                 <connections>
-                                    <action selector="buttonFunc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Edu-Ta-5rw"/>
+                                    <action selector="buttonFunc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dwO-OT-k9b"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qD-FI-DFd">
@@ -54,11 +55,9 @@
                         <constraints>
                             <constraint firstItem="hzM-ce-heN" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6hl-Cg-jyO"/>
                             <constraint firstItem="hzM-ce-heN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9YS-xm-RlX"/>
-                            <constraint firstItem="hzM-ce-heN" firstAttribute="centerX" secondItem="Mtr-TS-6wp" secondAttribute="centerX" id="OAU-uZ-Wrl"/>
                             <constraint firstItem="hzM-ce-heN" firstAttribute="centerX" secondItem="2qD-FI-DFd" secondAttribute="centerX" id="b5b-6W-Fhe"/>
                             <constraint firstItem="hzM-ce-heN" firstAttribute="centerX" secondItem="SKV-DT-4Pb" secondAttribute="centerX" id="pY4-bQ-xnc"/>
                             <constraint firstItem="2qD-FI-DFd" firstAttribute="top" secondItem="SKV-DT-4Pb" secondAttribute="bottom" constant="30" id="rla-KN-Vii"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mtr-TS-6wp" secondAttribute="bottom" constant="150" id="uao-JJ-gpp"/>
                             <constraint firstItem="SKV-DT-4Pb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="104" id="ydb-yW-qCL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -66,6 +65,7 @@
                     <connections>
                         <outlet property="dateLabel" destination="SKV-DT-4Pb" id="3Z5-im-u1l"/>
                         <outlet property="datePicker" destination="hzM-ce-heN" id="AeK-ma-z4G"/>
+                        <outlet property="setButton" destination="Mtr-TS-6wp" id="eJF-5b-KnU"/>
                         <outlet property="timeLabel" destination="2qD-FI-DFd" id="yoz-uy-TL7"/>
                     </connections>
                 </viewController>
